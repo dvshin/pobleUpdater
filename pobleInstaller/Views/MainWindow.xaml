@@ -1,0 +1,58 @@
+﻿<hc:Window x:Class="pobleInstaller.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="{Binding Title}" 
+        WindowStartupLocation="CenterScreen"
+        ShowTitle="True"
+        Height="450" 
+        Width="800" Loaded="Window_Loaded">
+
+  
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="80" />
+            <RowDefinition Height="24" />
+        </Grid.RowDefinitions>
+        
+        <Grid
+            Grid.Row="1"
+            Margin="24,0,24,0"
+            Background="{DynamicResource MahApps.Brushes.Gray10}">
+            <!--
+            The Mahapps Gray10 color represents where you should place your content.
+            Place your content here.
+            -->
+            <WebBrowser x:Name="wbMain"  />
+
+
+        </Grid>
+        <Grid Grid.Row="2" Margin="24,0,24,0">
+            <StackPanel>
+                <ProgressBar Maximum="{Binding TotalProgress}" Value="{Binding CurrentProgress}" Visibility="{Binding ShowProgressBar,Converter = {StaticResource BoolToShow}}" />
+                <TextBlock TextAlignment="Right" Text="{Binding UpdateStatus}"/>
+            </StackPanel>
+            
+        </Grid>
+        <Grid Grid.Row="3" Margin="24,0,24,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="130"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Width="150" Height="60" Command="{Binding InstallOrUpdateCommand}" IsEnabled="{Binding CanInstall}" FontSize="18">Install</Button>
+            <Button Grid.Column="3" Width="150" Height="60" Command="{Binding LaunchCommand}" IsEnabled="{Binding CanLaunch}" FontSize="18" >Launch</Button>
+        </Grid>
+        
+    </Grid>
+</hc:Window>

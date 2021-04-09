@@ -184,6 +184,7 @@ namespace pobleInstaller.ViewModels
                     LibGit2Sharp.PullOptions options = new LibGit2Sharp.PullOptions();
                     options.FetchOptions = new FetchOptions();
 
+                    
                     //options.FetchOptions.CredentialsProvider = new CredentialsHandler(
                     //    (url, usernameFromUrl, types) =>
                     //        new UsernamePasswordCredentials()
@@ -259,10 +260,10 @@ namespace pobleInstaller.ViewModels
             else
             {
 
-
+                MainStatus = UPDATE_STATUS.Update;
                 ///change to auto update
                 pullUpdateFromRemote();
-                MainStatus = UPDATE_STATUS.Launch;
+                //MainStatus = UPDATE_STATUS.Launch;
 
 
 

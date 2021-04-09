@@ -45,7 +45,7 @@ namespace pobleInstaller
                 IWshShortcut shortcut = (IWshShortcut)shellClass.CreateShortcut(settingsLink);
                 shortcut.TargetPath = String.Format(@"{0}\{1}.exe", Directory.GetCurrentDirectory(), sProduct);
                 shortcut.IconLocation = String.Format(@"{0}\{1}", Directory.GetCurrentDirectory(), ICON_FILE);
-
+                shortcut.WorkingDirectory = Directory.GetCurrentDirectory();
                 //shortcut.Arguments = "arg1 arg2";
                 shortcut.Description = "poble updater";
                 shortcut.Save();
@@ -69,7 +69,7 @@ namespace pobleInstaller
                 IWshShortcut shortcut = (IWshShortcut)shellClass.CreateShortcut(settingsLink);
                 shortcut.TargetPath = String.Format(@"{0}\{1}.exe", Directory.GetCurrentDirectory(), sProduct);
                 shortcut.IconLocation = String.Format(@"{0}\{1}", Directory.GetCurrentDirectory(), ICON_FILE);
-
+                shortcut.WorkingDirectory = Directory.GetCurrentDirectory();
                 //shortcut.Arguments = "arg1 arg2";
                 shortcut.Description = "poble updater";
                 shortcut.Save();

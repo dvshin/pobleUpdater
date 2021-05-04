@@ -15,9 +15,11 @@
     <ApplicationIcon>icon copy-29@3x.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;Core</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;Core</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>TRACE;Core</DefineConstants>

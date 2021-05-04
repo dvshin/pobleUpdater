@@ -146,11 +146,36 @@ namespace pobleInstaller.ViewModels
         /// </summary>
         public DelegateCommand InstallOrUpdateCommand { get; private set; }
 
-        void InstallOrUpdate()
+        internal async Task OpenPortAsync()
         {
+            string currentDir = Directory.GetCurrentDirectory();
+            string path = string.Format("{0}/{1}", currentDir, "open.cmd");
 
-            
+            string[] lines =
+            {
+                string.Format( "netsh advfirewall firewall add rule name=\"{0}\" dir=in action=allow program=\"{1}\" enable=yes","poble", string.Format("{0}{1}\\{2}", currentDir,GIT_PATH, EXE_FILE)),
+                "\n netsh advfirewall firewall add rule name =\"posHub\" dir =in action = allow protocol = TCP localport = *"
+            };
 
+            await File.WriteAllLinesAsync("open.cmd", lines);
+
+            Process process = new Process();
+            process.StartInfo.FileName = "open.cmd";
+            process.StartInfo.CreateNoWindow = true;
+            //process.StartInfo.RedirectStandardInput = true;
+            //process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.Verb = "runas";
+            process.Start();
+            //process.StandardInput.WriteLine(string.Format(@"netsh advfirewall firewall add rule name =""posHub"" dir =in action = allow protocol = TCP localport = {0}",port));
+            //process.StandardInput.Flush();
+            //process.StandardInput.Close();
+            //process.WaitForExit();
+            //Debug.WriteLine(process.StandardOutput.ReadToEnd());
+        }
+
+        async void InstallOrUpdate()
+        {
             if (MainStatus == UPDATE_STATUS.Install)
             {
                 var co = new CloneOptions();
@@ -164,6 +189,8 @@ namespace pobleInstaller.ViewModels
                     Repository.Clone(GIT_URI, gitPath, co);
                     MainStatus = UPDATE_STATUS.Launch;
                 });
+
+                await OpenPortAsync();
             }
             else
             {
